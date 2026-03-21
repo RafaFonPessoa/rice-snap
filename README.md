@@ -1,2 +1,120 @@
-# rice-snap
+# 🍚📸 rice-snap
+
 Generate a postcard-style card of your Linux rice and share it with the community! 🐧
+
+<img width="1280" height="720" alt="rice-card" src="https://github.com/user-attachments/assets/d9ac1d77-182a-42d2-99bb-2e41a3dcd016" />
+
+---
+
+## ✨ Features
+
+- Detects system info automatically: shell, kernel, DE, session type, terminal, CPU, GPU, and RAM
+- Generates a 1280x720 postcard-style PNG card
+- Custom seal and stamp support
+- Works on any Linux distro (Arch, CachyOS, Fedora, Ubuntu, Debian and more)
+
+---
+
+## 📦 Requirements
+
+Before installing, make sure you have:
+
+- `python3`
+- `python3-pip`
+- `python3-venv`
+
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/yourusername/rice-snap.git
+cd rice-snap
+bash install.sh
+```
+
+---
+
+## 🖼️ Usage
+
+Take a screenshot of your desktop first, then run:
+
+```bash
+rice-snap ~/Pictures/desktop.png
+```
+
+The card will be saved to `~/Downloads/rice-card.png`.
+
+### Options
+
+```
+rice-snap <image> [options]
+
+positional arguments:
+  image                 Path to your desktop screenshot
+
+optional arguments:
+  --seal   PATH         Path to a custom seal image (default: built-in rice-snap seal)
+  --stamp  PATH         Path to a custom stamp image (default: built-in rice-snap stamp)
+  --output PATH         Output path for the generated card (default: ~/Downloads/rice-card.png)
+```
+
+### Examples
+
+```bash
+# Basic usage
+rice-snap ~/Pictures/desktop.png
+
+# Custom seal
+rice-snap ~/Pictures/desktop.png --seal ~/Pictures/myseal.png
+
+# Custom output path
+rice-snap ~/Pictures/desktop.png --output ~/Pictures/rice-card.png
+```
+
+---
+
+## 🎨 Customization
+
+### Custom seal
+The seal is the stamp image in the top-right corner of the card. You can use any PNG with a transparent background.
+
+```bash
+rice-snap ~/desktop.png --seal ~/my-avatar.png
+```
+
+---
+
+## 🗂️ Project Structure
+
+```
+rice-snap/
+├── assets/
+│   ├── seal.png          # default seal
+│   └── stamp.png         # default stamp
+├── cli.py                # CLI entry point
+├── collector.py          # system info collector
+├── composer.py           # card generator
+├── install.sh            # installer
+└── README.md
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Some ideas:
+
+- Add more themes/color schemes for the card
+- Improve terminal detection for edge cases
+- Add more system info fields
+
+---
+
+## 📜 License
+
+MIT License
+
+---
+
+Made with ☕ and 🐧 by RafaFonPessoa
