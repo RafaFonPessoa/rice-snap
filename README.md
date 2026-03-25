@@ -2,9 +2,11 @@
 
 Generate a postcard-style card of your Linux rice and share it with the community! 🐧
 
-<img width="1280" height="720" alt="rice-card" src="https://github.com/user-attachments/assets/d9ac1d77-182a-42d2-99bb-2e41a3dcd016" />
+<img width="640" height="360" alt="rice-card" src="https://github.com/user-attachments/assets/d9ac1d77-182a-42d2-99bb-2e41a3dcd016" />
+<img width="640" height="360" alt="rice-card" src="https://github.com/user-attachments/assets/ea540960-2de5-4afd-b32b-31008d061494" />
+<img width="640" height="360" alt="rice-card1" src="https://github.com/user-attachments/assets/31e9d3a0-4a6d-48e1-b039-1d1839bb4352" />
 
----
+
 
 ## ✨ Features
 
