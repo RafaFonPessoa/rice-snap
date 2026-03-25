@@ -33,6 +33,7 @@ def get_terminal():
         "screen",
         "su",
         "sudo",
+        "rice-snap",
     ]
 
     while current_pid:
@@ -61,18 +62,33 @@ def get_terminal():
 
 
 def get_shell():
-    python_pid = os.getpid()
-    shell_pid = None
+    ignore_list = ['rice-snap', 'sudo', 'su', 'python3', 'python']
+    known_shells = ['bash', 'zsh', 'fish', 'sh', 'dash', 'nushell', 'elvish']
 
-    with open(f"/proc/{python_pid}/status") as f:
-        content = f.read()
+    current_pid = os.getpid()
+    while current_pid:
+        ppid_path = f"/proc/{current_pid}/status"
+        try:
+            with open(ppid_path) as f:
+                for line in f:
+                    if line.startswith("PPid:"):
+                        ppid = int(line.split()[1])
+                        break
+        except FileNotFoundError:
+            break
 
-    for line in content.split("\n"):
-        if line.startswith("PPid:"):
-            shell_pid = line.split()[1]
+        try:
+            with open(f"/proc/{ppid}/comm") as f:
+                name = f.read().strip()
+        except FileNotFoundError:
+            break
 
-    with open(f"/proc/{shell_pid}/comm") as f:
-        return f.read().strip()
+        if name in known_shells:
+            return name
+
+        current_pid = ppid
+
+    return os.environ.get("SHELL", "Unknown Shell").split("/")[-1]
 
 
 def get_cpu():

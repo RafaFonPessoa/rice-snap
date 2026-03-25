@@ -54,9 +54,14 @@ positional arguments:
   image                 Path to your desktop screenshot
 
 optional arguments:
-  --seal   PATH         Path to a custom seal image (default: built-in rice-snap seal)
-  --stamp  PATH         Path to a custom stamp image (default: built-in rice-snap stamp)
-  --output PATH         Output path for the generated card (default: ~/Downloads/rice-card.png)
+  --bg-color HEX        Background color (default: #FFFCED)
+  --bg-image PATH       Use image as background instead of solid color
+  --text-color HEX      Font color (default: #263A43)
+  --decoration-color HEX Accent lines color (default: #C93F2B)
+  --seal PATH           Custom seal image (default: built-in white seal)
+  --stamp PATH          Custom stamp image (default: built-in stamp)
+  --output PATH         Output path (default: ~/Downloads/rice-card.png)
+  -h, --help            Show help message
 ```
 
 ### Examples
@@ -64,6 +69,15 @@ optional arguments:
 ```bash
 # Basic usage
 rice-snap ~/Pictures/desktop.png
+
+# Dark theme card
+rice-snap ~/Pictures/desktop.png \
+  --bg-color "#1a1a2e" \
+  --text-color "#eee" \
+  --decoration-color "#e94560"
+
+# Custom background image
+rice-snap ~/Pictures/desktop.png --bg-image ~/Pictures/wallpaper.jpg
 
 # Custom seal
 rice-snap ~/Pictures/desktop.png --seal ~/Pictures/myseal.png
@@ -76,8 +90,18 @@ rice-snap ~/Pictures/desktop.png --output ~/Pictures/rice-card.png
 
 ## 🎨 Customization
 
+### Colors
+Use any valid hex color code:
+
+    Cream (default): #FFFCED
+    Dark: #1a1a2e with text #eee
+    Nord theme: #2e3440 bg, #d8dee9 text, #88c0d0 accent
+
+### Background Image
+For best results, use images with 16:9 aspect ratio (1280x720) or similar. The image will be resized to fit.
+
 ### Custom seal
-The seal is the stamp image in the top-right corner of the card. You can use any PNG with a transparent background.
+The seal is the stamp image in the top-right corner of the card. You can use any PNG with a transparent background. Recommended size: 200x300px
 
 ```bash
 rice-snap ~/desktop.png --seal ~/my-avatar.png

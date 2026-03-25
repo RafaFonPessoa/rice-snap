@@ -10,4 +10,6 @@ cat <<EOF | sudo tee /usr/local/bin/rice-snap >/dev/null
 EOF
 
 sudo chmod +x /usr/local/bin/rice-snap
-echo "rice-snap installed! Try: rice-snap ~/your-screenshot.png"
+echo "rice-snap installed!"
+echo "Try: rice-snap ~/your-screenshot.png"
+echo "Use rice-snap -h for help"

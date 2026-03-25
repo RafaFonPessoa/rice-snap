@@ -19,11 +19,35 @@ def get_font(size=20):
     return ImageFont.load_default()
 
 
-def create_base(width=1280, height=720, bg_color="#fffced"):
+def get_title_font(size=60):
+    paths = [
+        "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/liberation-mono-fonts/LiberationMono-Bold.ttf",
+        "/usr/share/fonts/dejavu/DejaVuSansMono-Bold.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+        "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
+    ]
+    for path in paths:
+        if os.path.exists(path):
+            return ImageFont.truetype(path, size)
+    return ImageFont.load_default()
+
+
+def create_base(bg_color="#fffced", bg_image=None):
     global img_width, img_height
-    img_width = width
-    img_height = height
-    base = Image.new("RGB", (width, height), color=bg_color)
+    img_width = 1280
+    img_height = 720
+
+    base = Image.new("RGB", (img_width, img_height), color=bg_color)
+
+    if bg_image:
+        img = Image.open(bg_image)
+        resize_image = img.resize((img_width, img_height))
+        base.paste(resize_image, (0, 0))
+
     return base
 
 
@@ -36,10 +60,11 @@ def paste_screenshot(base, image_path):
     return base
 
 
-def draw_info(base):
+def draw_info(base, text_color):
     font = get_font(20)
+    title_font = get_title_font(60)
 
-    color = "#263A43"
+    color = text_color
 
     draw = ImageDraw.Draw(base)
 
@@ -53,7 +78,7 @@ def draw_info(base):
         (int(img_width * 0.05), int(img_height * 0.1)),
         "MY RICE CARD",
         fill=color,
-        font=get_font(60),
+        font=title_font,
     )
 
     for key, value in info_dictionary.items():
@@ -88,11 +113,11 @@ def draw_seal(base, seal_path=None, stamp_path=None):
     return base
 
 
-def draw_decoration(base):
+def draw_decoration(base, decoration_color):
 
     draw = ImageDraw.Draw(base)
 
-    color = "#C93F2B"
+    color = decoration_color
 
     # draw thumbnail line
     draw.line(
@@ -110,13 +135,20 @@ def draw_decoration(base):
 
 
 def compose(
-    image_path, seal_path=None, stamp_path=None, output_path=None, display_name=None
+    image_path,
+    bg_color,
+    text_color,
+    bg_image,
+    decoration_color,
+    seal_path=None,
+    stamp_path=None,
+    output_path=None,
 ):
-    base = create_base()
+    base = create_base(bg_color, bg_image)
     base = paste_screenshot(base, image_path)
-    base = draw_info(base)
+    base = draw_info(base, text_color)
     base = draw_seal(base, seal_path, stamp_path)
-    base = draw_decoration(base)
+    base = draw_decoration(base, decoration_color)
     output = output_path or os.path.expanduser("~/Downloads/rice-card.png")
     base.save(output)
     base.show()

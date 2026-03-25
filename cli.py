@@ -12,6 +12,30 @@ def main():
     parser.add_argument("image", help="Path to your desktop screenshot")
 
     parser.add_argument(
+        "--bg-color",
+        default="#FFFCED",
+        help="Hex color for your card background (optional)",
+    )
+
+    parser.add_argument(
+        "--text-color",
+        default="#263A43",
+        help="Hex color for your card text (optional)",
+    )
+
+    parser.add_argument(
+        "--bg-image",
+        default=None,
+        help="Use image as a background for yout card (optional)",
+    )
+
+    parser.add_argument(
+        "--decoration-color",
+        default="#C93F2B",
+        help="Hex color for yout card decoration (optional)",
+    )
+
+    parser.add_argument(
         "--seal", default=None, help="Path to a custom seal image (optional)"
     )
 
@@ -27,6 +51,8 @@ def main():
 
     args = parser.parse_args()
 
+    bg_image = os.path.expanduser(args.bg_image) if args.bg_image else None
+
     # Resolve asset paths — use defaults if not provided
     seal_path = args.seal or os.path.join(
         os.path.dirname(__file__), "assets", "seal.png"
@@ -37,6 +63,10 @@ def main():
 
     compose(
         image_path=args.image,
+        bg_color=args.bg_color,
+        bg_image=bg_image,
+        decoration_color=args.decoration_color,
+        text_color=args.text_color,
         seal_path=seal_path,
         stamp_path=stamp_path,
         output_path=args.output,
